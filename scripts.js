@@ -91,7 +91,9 @@ const verifyWin = (turn)=>{
 		for(let id of pos){
 			id-=1
 
-			let value = sqrs[id].classList.contains('userSelection') 
+			let value = turn === 'user' ? 
+				sqrs[id].classList.contains('userSelection') :
+				sqrs[id].classList.contains('pcSelection') 
 
 			if(turn === 'user' && value === false){
 				value = null
@@ -99,6 +101,8 @@ const verifyWin = (turn)=>{
 
 			if(turn === 'computer' && value === false){
 				value = null 
+			}else if(turn === 'computer' && value === true){
+				value = false
 			}
 
 
