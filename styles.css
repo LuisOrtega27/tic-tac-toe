@@ -1,0 +1,116 @@
+
+:root{
+	--board-size-l: 500px;
+	--board-size-m: 400px;
+	--board-size-s: 300px;
+
+	--bgColor: hsl(220, 25%, 50%);
+}
+
+body{
+	font-family: arial;
+	font-size: 14px;
+}
+
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+
+.wraper{
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	
+	height: 100vh;
+	background: var(--bgColor);
+}
+.board{
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+
+	gap: 2px; 
+
+	height: var(--board-size-m);
+	width: var(--board-size-m);
+	
+
+	background: radial-gradient(#fff6, transparent 80%);
+
+	z-index: 1;
+	overflow: hidden;
+}
+.fade-dot{
+	position: absolute;
+
+	width: 300px;
+	height: 300px;
+	
+	z-index: 2;
+	border-radius: 50%;
+
+	/* animation: rainbow-bg 10s alternate infinite linear; */
+	pointer-events: none;
+}
+
+
+.board > .box{
+	position: relative;
+	display: grid; 
+	place-items: center;
+
+	font-size: 4em;
+	font-weight: 600;
+
+	background: var(--bgColor);
+	cursor: pointer;
+	z-index: 3;
+	transition: background 0.3s ease;
+}
+
+.defaultSpan{
+	opacity: 0;
+	pointer-events: none;
+}
+
+.sected{
+	pointer-events: none
+}
+
+.Oicon{
+	color: #2e2;
+}
+
+.Xicon{
+	color: #e22;
+}
+
+
+@keyframes rainbow-bg {
+	0%{
+		background: rgba(238, 34, 34, 0.6);
+	}
+	28%{
+		background: rgba(238, 85, 34, 0.6);
+	}
+	42%{
+		background: rgba(251, 255, 0, 0.6);
+	}
+	56%{
+		background: rgba(34, 238, 34, 0.6);
+	}
+	70%{
+		background: rgba(0, 255, 251, 0.6);
+	}
+	84%{
+		background: rgba(34, 136, 238, 0.6);
+	}
+	100%{
+		background: rgba(238, 34, 177, 0.6);
+	}
+}
