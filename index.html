@@ -6,6 +6,7 @@
 	<title>tic tac toe</title>
 
 	<link rel="stylesheet" href="./styles.css">
+	<link rel="stylesheet" href="./fontawesome-free-6.4.0-web/css/all.css">
 
 </head>
 <body>
@@ -13,30 +14,59 @@
 
 	<div class="wraper">
 
-		<h1>Tic tac toe</h1>
+		<h1 class="game-tite">Tic tac toe</h1>
 
-		<div class="board">
+		<div class="table-3-r">
 
-			<div class="fade-dot"></div>
-			
-			<div class="box" id="0"><span class="defaultSpan">N</span></div>
+			<div class="config-controls">
 
-			<div class="box" id="1"><span class="defaultSpan">N</span></div>
+				<button class="config-btn" id="reset-btn" title="reset game" value="reset">
+					reset <i class="fa-solid fa-repeat"></i>
+				</button>
+				
+				<button class="config-btn" id="player-vs-player" title="player vs player" value="pvp">
+					 <i class="fa-solid fa-user"></i> vs <i class="fa-solid fa-user"></i>
+				</button>
+				
+				<button class="config-btn" id="player-vs-computer" title="player vs computer" value="pvc">
+					 <i class="fa-solid fa-user"></i> vs <i class="fa-solid fa-computer"></i>
+				</button>
+				
+			</div>
 			
-			<div class="box" id="2"><span class="defaultSpan">N</span></div>
-			
-			<div class="box" id="3"><span class="defaultSpan">N</span></div>
-			
-			<div class="box" id="4"><span class="defaultSpan">N</span></div>
-			
-			<div class="box" id="5"><span class="defaultSpan">N</span></div>
-			
-			<div class="box" id="6"><span class="defaultSpan">N</span></div>
-			
-			<div class="box" id="7"><span class="defaultSpan">N</span></div>
-			
-			<div class="box" id="8"><span class="defaultSpan">N</span></div>
-			
+			<div class="board">
+
+				<div class="fade-dot"></div>
+				
+				<div class="box" id="0"><span class="defaultSpan">N</span></div>
+
+				<div class="box" id="1"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="2"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="3"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="4"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="5"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="6"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="7"><span class="defaultSpan">N</span></div>
+				
+				<div class="box" id="8"><span class="defaultSpan">N</span></div>
+				
+			</div>
+
+			<div class="score-table">
+
+				<h2 class="score-title">score table</h2>
+
+				<p>wins: <span class="score" id="score-wins">0</span></p>
+				<p>loses: <span class="score" id="score-loses">0</span></p>
+				<p>draws: <span class="score" id="score-draws">0</span></p>
+				
+			</div>
 		</div>
 	</div>
 

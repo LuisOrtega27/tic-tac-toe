@@ -22,24 +22,85 @@ body{
 
 .wraper{
 	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
+	flex-wrap: wrap;
+	flex-flow: column; 
 	
 	height: 100vh;
 	background: var(--bgColor);
 }
+
+.game-tite{
+	text-align: center;
+	width: 100%;
+	text-transform: uppercase;
+	font-size: 3em;
+	color: #fff;
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+
+.table-3-r{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	padding: 0 50px;
+	/* gap: 20px; */
+}
+
+.config-controls, .score-table{
+	text-align: center;
+}
+
+.config-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+}
+
+.config-controls > button{
+	background: none;
+	color: #fff;
+	padding: 10px;
+	width: 80%;
+	text-transform: uppercase;
+	font-size: 2em;
+	font-weight: 900;
+	border: solid 4px #fff;
+	cursor: pointer;
+	transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.config-controls > button:hover, .active-btn{
+	color: #28e !important;
+	background: #fff !important;
+}
+.config-controls > button:active{
+	transform: scale(0.9);
+}
+
+#reset-btn{
+	color: #000;
+	border: solid 4px #000;
+}
+#reset-btn:hover{
+	background-color: #ccc;
+}
+/* 
+.active-btn{
+	color: #28e !important;
+	background: #fff !important;
+} */
+
 .board{
 	position: relative;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-
+	
 	gap: 2px; 
-
+	
 	height: var(--board-size-m);
 	width: var(--board-size-m);
 	
-
 	background: radial-gradient(#fff6, transparent 80%);
 
 	z-index: 1;
@@ -90,6 +151,29 @@ body{
 	color: #e22;
 }
 
+
+.score-table{
+	color: #fff;
+	font-size: 1.5em;
+}
+.score-table > .score-title{
+	margin-bottom: 40px;
+}
+
+.score-table > p{
+	text-align: start;
+	padding-left: 100px;
+}
+
+#score-wins{
+	color: #2e2;
+}
+#score-loses{
+	color: #e22;
+}
+#score-draws{
+	color: #ccc;
+}
 
 @keyframes rainbow-bg {
 	0%{
