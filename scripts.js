@@ -473,6 +473,8 @@ BOX_LIST.forEach( box=>box.addEventListener("click", userTurn) )
 
 const resetGame = (clearAll = false)=>{
 
+	if(gameModality === '') return
+	
 	PLAYERS_SCORE.user = [
 		// horizontales
 		[null,null,null],
