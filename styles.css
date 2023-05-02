@@ -248,9 +248,13 @@ body{
 		border-width: 2px !important;
 	}
 
+	.game-tite{
+		margin-top: 20px;
+	}
+	
 	.board{
 		height: var(--board-size-m);
-		width: 80%;
+		width: 95%;
 		margin: auto;
 		margin-bottom: 50px;
 
