@@ -25,7 +25,7 @@ body{
 	flex-wrap: wrap;
 	flex-flow: column; 
 	
-	height: 100vh;
+	height: 100%;
 	background: var(--bgColor);
 }
 
@@ -43,8 +43,11 @@ body{
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	padding: 0 50px;
-	/* gap: 20px; */
 }
+
+
+/*---------------------------- Configuration control ----------------------------*/
+
 
 .config-controls, .score-table{
 	text-align: center;
@@ -85,11 +88,10 @@ body{
 #reset-btn:hover{
 	background-color: #ccc;
 }
-/* 
-.active-btn{
-	color: #28e !important;
-	background: #fff !important;
-} */
+
+
+/*---------------------------- Gameboard ----------------------------*/
+
 
 .board{
 	position: relative;
@@ -100,12 +102,16 @@ body{
 	
 	height: var(--board-size-m);
 	width: var(--board-size-m);
+
+	font-size: 4em;
+	font-weight: 600;
 	
 	background: radial-gradient(#fff6, transparent 80%);
 
 	z-index: 1;
 	overflow: hidden;
 }
+
 .fade-dot{
 	position: absolute;
 
@@ -115,8 +121,10 @@ body{
 	z-index: 2;
 	border-radius: 50%;
 
-	/* animation: rainbow-bg 10s alternate infinite linear; */
 	pointer-events: none;
+
+	transition: background 0.6s ease;
+
 }
 
 
@@ -125,8 +133,8 @@ body{
 	display: grid; 
 	place-items: center;
 
-	font-size: 4em;
-	font-weight: 600;
+	/* font-size: 4em;
+	font-weight: 600; */
 
 	background: var(--bgColor);
 	cursor: pointer;
@@ -143,14 +151,15 @@ body{
 	pointer-events: none
 }
 
-.Oicon{
+.Oicon, #score-wins{
 	color: #2e2;
 }
 
-.Xicon{
+.Xicon, #score-loses{
 	color: #e22;
 }
 
+/*---------------------------- Score table ----------------------------*/
 
 .score-table{
 	color: #fff;
@@ -162,17 +171,136 @@ body{
 
 .score-table > p{
 	text-align: start;
+	font-size: 1.2em;
 	padding-left: 100px;
 }
 
-#score-wins{
-	color: #2e2;
+#score-wins,
+#score-loses,
+#score-draws{
+	font-weight: 900;
 }
-#score-loses{
-	color: #e22;
-}
+
 #score-draws{
 	color: #ccc;
+}
+
+.appear-animation{
+	animation-name: beat;
+	animation-duration: 0.6s;
+
+}
+
+
+/*---------------------------- Modal ----------------------------*/
+
+.modal{
+	
+	position: absolute;
+	
+	display: none;
+
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+	width: 100%;
+	
+	background: #0001;
+
+	z-index: 100;
+}
+
+.fade-in{
+	display: flex;
+
+	animation-name: beat;
+	animation-duration: 2s;
+}
+
+.modal-msg{
+	text-align: center;
+	color: #fff;
+	font-size: 4em;
+	
+}
+
+
+/* ---------------------------- RESPONSIVE ZONE ----------------------------*/
+
+@media screen and (width < 930px) {
+
+	.table-3-r{
+		grid-template-columns: 1fr;	
+	}
+	.config-controls{
+		flex-direction: row;
+		flex-wrap: nowrap;
+		margin-bottom: 50px;
+	}
+	.config-controls > button{
+		font-size: 1em;
+		/* width: auto; */
+		border-width: 2px !important;
+	}
+
+	.board{
+		height: var(--board-size-m);
+		width: 80%;
+		margin: auto;
+		margin-bottom: 50px;
+
+		font-size: 3em;
+		font-weight: 900;
+	}
+	
+	.modal-msg{
+		font-size: 1em;
+	}
+
+	.score-table{
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		/* background: #ccc; */
+		margin-bottom: 20px;
+	}
+
+	.score-title{
+		grid-column: 1 / 4;
+		margin-bottom: 20px !important;
+	}
+
+	.score-table p {
+		padding-left: 0;
+	}
+
+	
+}
+
+
+
+/*---------------------------- ANIMATIONS ZONE ----------------------------*/
+
+
+@keyframes beat {
+	from{
+		transform: scale(1.2);
+	}
+	to{
+		transform: scale(1);
+	}
+}
+
+@keyframes fade-in {
+	0%{
+		display: flex;
+		opacity: 1;
+	}
+
+	100%{
+		display: none;
+		opacity: 1;
+	}
 }
 
 @keyframes rainbow-bg {

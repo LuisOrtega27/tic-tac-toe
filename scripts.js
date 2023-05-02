@@ -5,14 +5,25 @@ const GAME_BOARD = document.querySelector('.board')
 const BOX_LIST = document.querySelectorAll(".box")
 
 const fadeDot = document.querySelector('.fade-dot')
-fadeDot.style.transition= 'background 0.6s ease'
 
 const CONFIG_BTNS = document.querySelectorAll('.config-btn')
 
+const SCORE_INTERFACE = document.querySelectorAll('.score')
 
 const SCORE_WINS = document.querySelector('#score-wins')
 const SCORE_LOSES = document.querySelector('#score-loses')
 const SCORE_DRAWS = document.querySelector('#score-draws')
+
+
+const MODAL = document.querySelector('.modal')
+const MODAL_MSG = document.querySelector('.modal-msg')
+
+// modal // modal-msg
+
+
+// --------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------
 
 
 let mousePosition = {}
@@ -141,6 +152,11 @@ const PLAYERS_SCORE = {
 }
 
 
+// --------------------------------------------------------------------------------------------------
+// ------------------------------------------ MOUSE TRAKER ------------------------------------------
+// --------------------------------------------------------------------------------------------------
+
+
 const handleMouseOver = ()=> {
 	GAME_BOARD.addEventListener('mousemove', handleMouseMove )
 }
@@ -176,33 +192,91 @@ GAME_BOARD.addEventListener('mouseleave', handleMouseLeave )
 
 
 
+// --------------------------------------------------------------------------------------------------
+// ---------------------------------------- ANIMATIONS ----------------------------------------------
+// --------------------------------------------------------------------------------------------------
+
+
+const modalHandler = (msg)=>{
+
+	if(msg === DICTIONARY.turn.user) msg = 'player_1 <br> ha ganado!'
+	if(msg === DICTIONARY.turn.user2) msg = 'player_2 <br> ha ganado!'
+	if(msg === DICTIONARY.turn.computer) msg = 'haz perdido!'
+
+	MODAL_MSG.innerHTML = msg
+	
+
+	MODAL.classList.add('fade-in')
+	
+	MODAL.addEventListener('animationend', ()=> MODAL.classList.remove('fade-in') )
+	
+}
+
+
+const changeScoreHandler = (index)=>{
+
+	SCORE_INTERFACE[index].classList.add('appear-animation')
+		
+	SCORE_INTERFACE[index].addEventListener('animationend',()=>{
+		SCORE_INTERFACE[index].classList.remove('appear-animation')
+	})
+
+}
+
+
+// --------------------------------------------------------------------------------------------------
+// ---------------------------------------------- GAME ----------------------------------------------
+// --------------------------------------------------------------------------------------------------
+
+
 const blockGameboard = (block)=>{
 	BOX_LIST.forEach( box => box.style.pointerEvents = block? "none" : 'all' )
 }
 blockGameboard(true)
 
 
+
 const detectDrawGame = ()=>{
 	blockGameboard(true)
 	console.log('IS A DRAW GAME!!!')
 
+	changeScoreHandler(2)
 	SCORE_DRAWS.textContent = parseInt(SCORE_DRAWS.textContent) + 1
 
 	setTimeout(resetGame, 2000)
 
+	modalHandler('es un empate!')
+
 }
 
 
+
 const endGame = (turn)=>{
+
 	blockGameboard(true)
-	console.log(`'${turn}' HA GANADO!!!`)
+
+	// console.log(`'${turn}' HA GANADO!!!`)
 
 
-	if(turn === DICTIONARY.turn.user) SCORE_WINS.textContent = parseInt(SCORE_WINS.textContent) + 1
+	if(turn === DICTIONARY.turn.user){
+		
+		changeScoreHandler(0)
+		SCORE_WINS.textContent = parseInt(SCORE_WINS.textContent) + 1
 
-	if(turn === DICTIONARY.turn.user2 || turn === DICTIONARY.turn.computer) 
+		modalHandler(turn)
+
+	}
+	
+	if(turn === DICTIONARY.turn.user2 || turn === DICTIONARY.turn.computer){ 
+
+		changeScoreHandler(1)
 		SCORE_LOSES.textContent = parseInt(SCORE_LOSES.textContent) + 1 
 
+		modalHandler(turn)
+
+	}
+
+	
 	setTimeout(resetGame, 2000)
 
 }
@@ -250,9 +324,6 @@ const verifyPatternMatch = (turn, id)=>{
 	PLAYER.forEach( pack =>console.log(pack) )
 	console.log('------------------------------\n')
 
-
-	turnCounter ++
-	if(turnCounter === 9) detectDrawGame()
 	
 	// retornar el valor para que el player gane o pierda.
 	return winner 
@@ -297,6 +368,10 @@ const insertTurnIcon = (turn, selectedBox)=>{
 }
 
 
+// --------------------------------------------------------------------------------------------------
+// ---------------------------------------- GAME TURNS ----------------------------------------------
+// --------------------------------------------------------------------------------------------------
+
 
 const computerTurn = ()=>{
 
@@ -325,6 +400,9 @@ const computerTurn = ()=>{
 
 	blockGameboard(false)
 
+
+	turnCounter ++
+	if(turnCounter === 9) detectDrawGame()
 }
 
 
@@ -343,6 +421,8 @@ const user2Turn = ({target})=>{
 	BOX_LIST.forEach( box=>box.addEventListener("click", userTurn) )
 	
     
+	turnCounter ++
+	if(turnCounter === 9) detectDrawGame()
 }
 
 
@@ -376,16 +456,23 @@ const userTurn = ({target})=>{
 		setTimeout( computerTurn, 1000)
 	}
     
+
+	turnCounter ++
+	if(turnCounter === 9) detectDrawGame()
 }
+
+
 
 BOX_LIST.forEach( box=>box.addEventListener("click", userTurn) )
 
 
+// --------------------------------------------------------------------------------------------------
+// ------------------------------------------- BUTTONS ----------------------------------------------
+// --------------------------------------------------------------------------------------------------
+
 
 const resetGame = (clearAll = false)=>{
 
-	// console.log(event.target.value)
-	
 	PLAYERS_SCORE.user = [
 		// horizontales
 		[null,null,null],
@@ -485,20 +572,6 @@ const playerVSComputer = (event)=>{
 
 }
 
-
-// CONFIG_BTNS.forEach(btn=>{
-
-// 	btn.addEventListener('click', (e)=>{
-
-// 		const option = e.target.value
-
-// 		if(option === DICTIONARY.buttons.reset) resetGame(e.target)
-// 		if(option === DICTIONARY.buttons.pvp) playerVSPlayer(e.target)
-// 		if(option === DICTIONARY.buttons.pvc) playerVSComputer(e.target)
-		
-// 	})
-
-// })
 
 
 // por alguna razon los botones no responden bien aveces.
